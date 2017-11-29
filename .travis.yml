@@ -22,6 +22,7 @@ after_success:
 after_script:
 - docker-compose kill
 before_deploy:
+- cd ..
 - tar cvf release.tgz .
 deploy:
   provider: releases
