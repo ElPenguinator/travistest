@@ -1,0 +1,15 @@
+.projects-loader {
+    font-size: x-large;
+}
+
+.projects .project {
+    padding: 0;
+    display:grid;
+}
+.projects .project a {
+    padding: 10px 15px;
+    display: block;
+}
+.projects .project a:hover {
+    background-color: #f5f5f5;
+}

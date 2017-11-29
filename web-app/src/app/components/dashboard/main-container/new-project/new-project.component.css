@@ -1,0 +1,26 @@
+.nb-sprints.panel {
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.nb-sprints .panel-body {
+    padding:0;
+}
+
+.nb-sprints .panel-heading {
+    background-color: #eee;
+    padding: 6px 12px;
+    border-bottom-width: 0;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+.nb-sprints .panel-heading label {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+.nb-sprints .panel-body input.form-control {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

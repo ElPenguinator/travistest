@@ -1,0 +1,118 @@
+<div *ngIf="loading" class="page-loading text-center">
+    <i class="ld ld-spin ld-ring"></i>
+</div>
+<div *ngIf="!loading">
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h1 align="center">{{ currentProject.name }}</h1>
+            <p align="center">{{ currentProject.description }}</p>
+            <p align="center">Date de debut : xx/xx/xxxx</p>
+            <p align="center">Nombre de sprints : 3</p>
+        </div>
+    </div>
+
+    <br>
+    <div class="panel panel-default members-list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Rôle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of currentProject.users">
+                    <td><span class="email" [id]="user.login">{{ user.login }}</span>&nbsp;(<span class="username">{{ user.name }} {{ user.surname }}</span>)</td>
+                    <td>{{ user.role }}</td>
+                </tr>
+                <tr *ngIf="currentProject.users && currentProject.users.length === 0"
+                    class="empty-list">
+                    <td colspan="2" class="text-center">
+                        Aucun utilisateur n'a été ajouté au projet.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-9">
+            <div [hidden]="!showAddMember" class="panel panel-default">
+                <h4 align="center">Ajouter un membre</h4>
+                <div class="alert alert-danger"
+                     *ngIf="errorMessageAddMember !== null">
+                    {{ errorMessageAddMember }}
+                </div>
+
+                <form novalidate [formGroup]="addMemberForm">
+                    <table class="table addMember">
+                        <tr>
+                        <td>
+                            <div class="form-group has-feedback"
+                                 [ngClass]="{ 'has-error': login.invalid && (login.dirty || login.touched || addMemberFormSubmitted) }">
+                                <label for="addedUserLogin">Adresse email à ajouter</label>
+                                <input type="email"
+                                       class="form-control"
+                                       id="addedUserLogin"
+                                       placeholder="Email"
+                                       name="login"
+                                       formControlName="login"
+                                       [email]="true"/>
+
+                                <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                                      [ngClass]="{ 'show': login.invalid && (login.dirty || login.touched || addMemberFormSubmitted) }"></span>
+                                <div class="col-12 text-danger"
+                                     *ngIf="login.invalid && (login.dirty || login.touched || addMemberFormSubmitted)">
+                                    <span class="validation-message" *ngIf="login.errors.required">L'adresse email est requis.</span>
+                                    <span class="validation-message" *ngIf="login.errors.email">L'adresse email entrée est invalide</span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <label for="addedUserRole">Rôle</label>
+                                    <select id="addedUserRole"
+                                            class="form-control"
+                                            [formControlName]="'role'">
+                                        <option *ngFor="let role of availabledRole"
+                                                [attr.value]="role.id"
+                                                [selected]="role.id == 2">
+                                            {{ role.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel-body" [hidden]="showAddMember">
+                <button class="btn-add btn btn-primary pull-right" name="newmember" (click)="toggleAddMember()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span> Assigner un membre</span>
+                </button>
+            </div>
+
+            <div class="panel-body" [hidden]="!showAddMember">
+                <button class="btn-add btn btn-success pull-right" name="addmember" (click)="submitAddMemberForm()">
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                    <span > Ajouter</span>
+                </button>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>

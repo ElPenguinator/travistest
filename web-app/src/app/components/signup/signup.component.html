@@ -1,0 +1,116 @@
+<div class="container card-page">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div class="jumbotron">
+                <h2 class="page-title text-center">Sign up</h2>
+                <div *ngIf="signupError !== null"
+                     class="alert alert-danger" role="alert">
+                    {{ signupError }}
+                </div>
+                <form [formGroup]="signupForm"
+                      novalidate>
+                    <div class="form-group has-feedback"
+                         [ngClass]="{ 'has-error': name.invalid && (name.dirty || name.touched || signupSubmitted) }">
+                        <div class="input-group">
+                            <span class="input-group-addon">Prénom</span>
+                            <input type="text"
+                                   name="name"
+                                   class="form-control"
+                                   placeholder="Veuillez entrez votre prénom"
+                                   formControlName="name"/>
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                              [ngClass]="{ 'show': name.invalid && (name.dirty || name.touched || signupSubmitted) }"></span>
+                        <div class="col-12 text-danger"
+                             *ngIf="name.invalid && (name.dirty || name.touched || signupSubmitted)">
+                            <span class="validation-message" *ngIf="name.errors.required">Votre prénom est requis.</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         [ngClass]="{ 'has-error': surname.invalid && (surname.dirty || surname.touched || signupSubmitted) }">
+                        <div class="input-group">
+                            <span class="input-group-addon">Nom</span>
+                            <input type="text"
+                                   name="surname"
+                                   class="form-control"
+                                   placeholder="Veuillez entrez votre nom"
+                                   formControlName="surname"/>
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                              [ngClass]="{ 'show': surname.invalid && (surname.dirty || surname.touched || signupSubmitted) }"></span>
+                        <div class="col-12 text-danger"
+                             *ngIf="surname.invalid && (surname.dirty || surname.touched || signupSubmitted)">
+                            <span class="validation-message" *ngIf="surname.errors.required">Votre nom est requis.</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         [ngClass]="{ 'has-error': login.invalid && (login.dirty || login.touched || signupSubmitted) }">
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input type="email"
+                                   [email]="true"
+                                   name="email"
+                                   class="form-control"
+                                   placeholder="Veuillez entrer votre adresse email"
+                                   formControlName="login"/>
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                              [ngClass]="{ 'show': login.invalid && (login.dirty || login.touched || signupSubmitted) }"></span>
+                        <div class="col-12 text-danger"
+                             *ngIf="login.invalid && (login.dirty || login.touched || signupSubmitted)">
+                            <span class="validation-message" *ngIf="login.errors.required">Votre adresse email est requise.</span>
+                            <span class="validation-message" *ngIf="login.errors.email">L'adresse email est invalide.</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         [ngClass]="{ 'has-error': password.invalid && (password.dirty || password.touched || signupSubmitted) }">
+                        <div class="input-group">
+                            <span class="input-group-addon">Mot de passe</span>
+                            <input type="password"
+                                   class="form-control"
+                                   placeholder="Veuillez entrer votre mot de passe"
+                                   name="password1"
+                                   formControlName="password"/>
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                              [ngClass]="{ 'show': password.invalid && (password.dirty || password.touched || signupSubmitted) }"></span>
+                        <div class="col-12 text-danger"
+                             *ngIf="password.invalid && (password.dirty || password.touched || signupSubmitted)">
+                            <span class="validation-message" *ngIf="password.errors.required">Votre mot de passe est requis.</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback"
+                         [ngClass]="{ 'has-error': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || signupSubmitted) }">
+                        <div class="input-group">
+                            <span class="input-group-addon">Confirmer le mdp</span>
+                            <input type="password"
+                                   name="password2"
+                                   class="form-control"
+                                   placeholder="Confirmez votre mot de passe"
+                                   formControlName="confirmPassword"/>
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback hide" aria-hidden="true"
+                              [ngClass]="{ 'show': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || signupSubmitted) }"></span>
+                        <div class="col-12 text-danger"
+                             *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || signupSubmitted)">
+                            <span class="validation-message" *ngIf="confirmPassword.errors.required">Votre mot de passe est requis.</span>
+                            <span class="validation-message" *ngIf="confirmPassword.errors.controlEqual">Les deux mots de passe doivent être identiques.</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-success pointer-cursor ld-ext-left pull-right"
+                                type="submit"
+                                name="createaccount"
+                                [ngClass]="{ 'running': signupLoading }"
+                                (click)="submitSignUpForm()">
+                            <i class="ld ld-spin ld-ring"></i>
+                            S'inscrire
+                        </button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

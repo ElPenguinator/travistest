@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  mongo:
+    image: mongo:3.4
+    restart: always
+    ports:
+      - "27017:27017"
+  express:
+    build: .
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/api/node_modules
+      - /home/node/app/web-app/node_modules
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo

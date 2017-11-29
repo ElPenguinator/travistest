@@ -1,0 +1,20 @@
+.members-list .empty-list > td {
+    background-color: #ddd;
+}
+
+.members-list .email {
+    font-weight: bold;
+}
+
+.members-list .username {
+    font-style: italic;
+}
+
+table.addMember {
+    margin:0;
+}
+
+.page-loading {
+    font-size: 5rem;
+    margin-top: 2rem;
+}

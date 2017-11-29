@@ -1,0 +1,557 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a Scrum project management server, with the multiple services provided by this server.",
+    "version" : "1.0.0",
+    "title" : "Bepp Project",
+    "contact" : {
+      "email" : "mathieuperez3@gmail.com"
+    }
+  },
+  "tags" : [ {
+    "name" : "user",
+    "description" : "Operations about user"
+  }, {
+    "name" : "project",
+    "description" : "Operations about project"
+  }, {
+    "name" : "User Stories",
+    "description" : "Operations about User Stories"
+  }, {
+    "name" : "Sprint",
+    "description" : "Operations about Sprint"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/api/users/" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "Create user",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Created user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/api/users/token" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "Logs user into the system",
+        "description" : "",
+        "operationId" : "loginUser",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "login",
+          "in" : "query",
+          "description" : "The user name for login",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "description" : "The password for login in clear text",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/api/users/{login}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Get user by login",
+        "description" : "",
+        "operationId" : "getUserByName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "login",
+          "in" : "path",
+          "description" : "The name that needs to be fetched.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/api/projects/" : {
+      "post" : {
+        "tags" : [ "project" ],
+        "summary" : "Create project",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createProject",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Created user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Project"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "409" : {
+            "description" : "Already a project with this name"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}/users/{login}" : {
+      "put" : {
+        "tags" : [ "project" ],
+        "summary" : "Add user to project",
+        "description" : "",
+        "operationId" : "addUser",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The user name for login",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "login",
+          "in" : "path",
+          "description" : "The password for login in clear text",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "role",
+          "in" : "query",
+          "description" : "The role for the user in the project",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Project or User not found"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}" : {
+      "get" : {
+        "tags" : [ "project" ],
+        "summary" : "Get project by name",
+        "description" : "",
+        "operationId" : "getProjectByName",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name that needs to be fetched.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}/US/" : {
+      "put" : {
+        "tags" : [ "User Stories" ],
+        "summary" : "Create User Stories",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createUS",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name of the US' project.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Created User Stories object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/US"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}/US/{id}" : {
+      "delete" : {
+        "tags" : [ "User Stories" ],
+        "summary" : "Delete US by id",
+        "description" : "",
+        "operationId" : "deleteUSById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name of the project of the US to delete.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the US to delete.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "409" : {
+            "description" : "US not found"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "User Stories" ],
+        "summary" : "Modify US by id",
+        "description" : "",
+        "operationId" : "patchUSById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the US to patch.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name of the US' project.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "409" : {
+            "description" : "US not found"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}/user/{role}/US/{id}" : {
+      "patch" : {
+        "tags" : [ "User Stories" ],
+        "summary" : "Modify US' priority",
+        "description" : "",
+        "operationId" : "modifyUSPriority",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the US to modify",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name of the US' project.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "The user's role.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "409" : {
+            "description" : "US not found"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      }
+    },
+    "/api/projects/{name}/sprints/" : {
+      "put" : {
+        "tags" : [ "Sprint" ],
+        "summary" : "Create Sprint",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "createSprint",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "The name of the US' project.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Created Sprint object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Sprint"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "409" : {
+            "description" : "Already a sprint at this date"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      }
+    },
+    "/api/sprints/{starting date}/US/{id}" : {
+      "patch" : {
+        "tags" : [ "Sprint" ],
+        "summary" : "Add US to sprint",
+        "description" : "",
+        "operationId" : "addUSToSprint",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "starting date",
+          "in" : "path",
+          "description" : "The starting date of the sprint",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the US",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "401" : {
+            "description" : "Failed to authenticate token"
+          },
+          "403" : {
+            "description" : "User not allowed"
+          },
+          "404" : {
+            "description" : "Page introuvable"
+          },
+          "409" : {
+            "description" : "Sprint or US not found"
+          },
+          "422" : {
+            "description" : "Missing arguments"
+          },
+          "500" : {
+            "description" : "There was a problem with the database"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "petstore_auth" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://petstore.swagger.io/oauth/dialog",
+      "flow" : "implicit",
+      "scopes" : {
+        "write:pets" : "modify pets in your account",
+        "read:pets" : "read your pets"
+      }
+    },
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "api_key",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "Project" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "US" : {
+      "type" : "object",
+      "properties" : {
+        "Description" : {
+          "type" : "string"
+        },
+        "Difficulté" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "Sprint" : {
+      "type" : "object",
+      "properties" : {
+        "starting date" : {
+          "type" : "string"
+        },
+        "duration" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    }
+  }
+}

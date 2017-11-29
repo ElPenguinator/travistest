@@ -1,0 +1,28 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Projects</div>
+        <ul class="list-group projects">
+            <li class="list-group-item projects-loader text-center"
+                *ngIf="projectsLoading">
+                <i class="ld ld-spin ld-ring"></i>
+            </li>
+            <li *ngIf="!projectsLoading && projectsList.length === 0"
+                class="text-center list-group-item">
+                Pas encore de projet
+            </li>
+            <li *ngFor="let project of projectsList" class="list-group-item project">
+                <a class="pointer-cursor" [name]="project.name" [routerLink]="['projects', project.name]" >
+                    {{ project.name }}
+                </a>
+            </li>
+        </ul>
+    <div class="panel-body">
+        <button class="btn btn-primary pull-right" name="newproject" routerLink="newproject">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span> Nouveau projet</span>
+        </button>
+    </div>
+</div>
+
+
+

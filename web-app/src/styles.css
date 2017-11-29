@@ -1,0 +1,21 @@
+/* Utils class */
+.validation-message ~ .validation-message {
+    display: none;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.page-title {
+    margin-bottom: 3rem;
+}
+
+/* Forms */
+form .input-group > .input-group-addon:first-child {
+    min-width: 16rem;
+}
+
+.card-page.container {
+    margin-top: 3rem;
+}

@@ -1,0 +1,4 @@
+/.gitignore
+/nodes_modules
+/npm-debug.log
+/.dockerignore

@@ -1,0 +1,132 @@
+<br>
+<div class="panel panel-default">
+
+
+<table class="table">
+
+    <tr>
+        <th>ID</th>
+        <th>UserStory</th>
+        <th>Difficulté</th>
+        <th>Priorité</th>
+        <th>Fait</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            <div [hidden]='showModifyUS'>En tant que *** Je souhaite *** afin de ***</div>
+
+            <div [hidden]='!showModifyUS'>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Userstory" size="50"/>
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <div [hidden]='showModifyUS'>3</div>
+            <div [hidden]='!showModifyUS'>
+                <div class="input-group">
+                    <input type="number" min="0" class="form-control" placeholder="Difficulté" size="4"/>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div [hidden]='showModifyUS'>3</div>
+            <div [hidden]='!showModifyUS'>
+                <div class="input-group">
+                    <input type="number" min="0" class="form-control" placeholder="Priorité" size="4"/>
+                </div>
+            </div>
+        </td>
+        <td>
+            <input class="done_checkbox" type="checkbox">
+        </td>
+        <td align="right">
+            <div [hidden]="showModifyUS">
+                <button type="button" class="btn btn-default"  (click)="toggleModifyUS()">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> Modifier</span>
+                </button>
+
+                <button type="button" class="btn btn-default" (click)="deleteUS()">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span><span> Supprimer</span>
+                </button>
+            </div>
+
+            <div [hidden]="!showModifyUS">
+                <button type="button" class="btn btn-default" (click)="modifyUS()">
+                    <span class="glyphicon glyphicon-check" aria-hidden="true" ></span><span> Valider</span>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-10">
+
+
+
+        <div [hidden]="!showAddUS" class="panel panel-default">
+
+
+            <h4 align="center">Ajouter une Userstory</h4>
+
+            <form novalidate [formGroup]="addUSForm">
+
+                <table class="table addMember">
+                    <tr>
+                        <td>
+                            <div class="form-group has-feedback">
+                                <label>Userstory à ajouter</label>
+                                <input class="form-control" size="100" name="us" placeholder="En tant que *** je souhaite *** afin de ***"/>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <label>Priorité</label>
+                                    <input type = "number" min="0" size="5" name="priority" class="form-control"/>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <div class="form-group">
+                                    <label>Difficulté</label>
+                                    <input type = "number" min="0" size="5" name="difficulty" class="form-control"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="panel-body" [hidden]="showAddUS || showModifyUS">
+            <button class="btn-add btn btn-primary pull-right" name="newus" (click)="toggleAddUS()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span >Ajouter Userstory</span>
+            </button>
+        </div>
+        <div class="panel-body" [hidden]="!showAddUS">
+            <button class="btn-add btn btn-success pull-right" name="addus" (click)="submitAddUSForm()">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                <span > Ajouter</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
