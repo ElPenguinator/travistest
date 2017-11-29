@@ -21,6 +21,8 @@ script:
 after_success: 
 after_script:
 - docker-compose kill
+before_deploy:
+- git checkout master
 deploy:
   provider: releases
   api_key:
