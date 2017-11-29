@@ -23,6 +23,7 @@ after_script:
 - docker-compose kill
 before_deploy:
 - tar cvf release.tgz .
+- git add release.tgz
 deploy:
   provider: releases
   api_key:
