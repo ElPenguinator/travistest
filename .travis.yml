@@ -1,0 +1,35 @@
+language: node_js
+sudo: required
+services:
+- docker
+cache:
+  directories:
+  - node_modules
+node_js:
+- 6
+before_install:
+- cd api/
+- npm install -g node-gyp
+before_script:
+- npm install -g standard
+- docker-compose build
+- docker-compose up -d
+- sleep 3
+- mongo "localhost:27017/nodetest1" --eval "db.dropDatabase();"
+script:
+- npm test
+after_success: 
+after_script:
+- docker-compose kill
+before_deploy:
+- git tag "$(date + '%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+-
+deploy:
+  provider: releases
+  api_key:
+    secure: dwDVunzk5do0iktpGWFluYo0WuHM+Q/uYnvVz6KMsLFsF+yxPc6uAXmMAqUhEQHMQMKhHgjYBOiheXUBDhFd2OQIYNYi3c8TQQ1qjoZ4ZRN3PGrVg/160dYpQr1rSKwWrOYv0vk2y9CrKn234atN7DKBpXS+z8g0UsErKzUMifvqeM2Fl796H6MHFSsiBcdUwqVW7BDMS0n2IvFk4iWjyLSZdSFLrZUFTGVVSEp3CBWl26rZqXUCg8MQ9W2vVbekPr+Zhs6h9uoXalpEzDMAW/4vmhPGFlsQCVvBBSid5h25I6ecN8KGFQb+67+33gkoJgXZ9HPCr/iEM0TQyfJID7Oq51bQoBP7OjcEDK1IFAuZxNkgm40uxOvVCV/uT17WZUDzMIOhtalHhtjpnVOBc4GWix8+um9Mjt8RQufmm06fb/NTGyzho7vtXxnqyNq7PArio8fxpTyGspQMtcgqxw3n5Esg8HXRfGwKq7pRJLGaWc6gHoSbOaxnwTOaS63yKtyWqs+jNDJJ2fIYj9HsIMXD2wLSjS9EuCOKBFa9xwItQBZne1ridD+fczVxjQoZVPBbkXNElweyuj9SluVB8YyaVEzPKYgDamtHC5pAYeZaLsIVGXjH7qEpgId8jkTqxUZQHttIuzYqPpP3vJ7JXIemRi7zc6ZI86gB5cps+JU=
+  file: '"release.tgz"'
+  on:
+    branch: master
+    tags: true
+    repo: ElPenguinator/bepp-project
