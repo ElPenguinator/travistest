@@ -27,12 +27,13 @@ script:
 - npm test
 - cd ../web-app
 - webdriver-manager update
-- webdriver-manager start --standalone &
+- webdriver-manager start --detach
 - cd tests
 - protractor conf.js
 after_success: 
 after_script:
 - docker-compose kill
+- webdriver-manager shutdown
 before_deploy:
 - cd ..
 - tar cvf release.tgz .
