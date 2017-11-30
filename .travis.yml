@@ -27,7 +27,7 @@ script:
 - npm test
 - cd ../web-app
 - webdriver-manager update
-- webdriver-manager start &
+- webdriver-manager start --standalone &
 - cd tests
 - protractor conf.js
 after_success: 
