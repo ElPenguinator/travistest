@@ -1,4 +1,10 @@
 language: node_js
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
 sudo: required
 services:
 - docker
@@ -10,6 +16,7 @@ node_js:
 before_install:
 - cd api/
 - npm install -g node-gyp
+- npm install -g protractor
 before_script:
 - npm install -g standard
 - docker-compose build
@@ -19,7 +26,10 @@ before_script:
 script:
 - npm test
 - cd ../web-app
-- ng e2e
+- webdriver-manager update
+- webdriver-manager start &
+- cd tests
+- protractor conf.js
 after_success: 
 after_script:
 - docker-compose kill
