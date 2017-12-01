@@ -25,7 +25,7 @@ before_script:
 - mongo "localhost:27017/nodetest1" --eval "db.dropDatabase();"
 script:
 - npm test
-- npm e2e
+- npm run e2e
 after_success: 
 after_script:
 - docker-compose kill
