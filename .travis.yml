@@ -25,6 +25,7 @@ before_script:
 - mongo "localhost:27017/nodetest1" --eval "db.dropDatabase();"
 script:
 - npm test
+- cd web-app
 - npm e2e
 after_success: 
 after_script:
