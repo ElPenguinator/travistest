@@ -100,7 +100,6 @@ export class NewProjectComponent implements OnInit {
 
                 this.apiCallingObserverService.updateListProject.next(true);
                 this.router.navigate(['dashboard/projects', this.newProjectForm.value.name])
-
             }, (error) => {
                 this.newProjectLoading = false;
 

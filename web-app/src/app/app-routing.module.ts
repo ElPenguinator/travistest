@@ -44,7 +44,7 @@ const routes: Routes = [
     },
 
     // Default
-    { path: '**', redirectTo: '/dashboard' }
+    { path: '**', redirectTo: 'dashboard' }
 ];
 
 @NgModule({

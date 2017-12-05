@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AppConstants} from "../../../../../app-constants";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs/Subscription";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CheckAuthService} from "../../../../../services/check-auth.service";
+import "rxjs/add/operator/take";
+import {ProjectManagerService} from "../../../../../services/project-manager.service";
 
 /**
  * Logic for the overview page of one project.
@@ -31,11 +32,6 @@ export class OverviewContainerComponent implements OnInit {
      * Received data from api, project to display.
      */
     private currentProject: any;
-
-    /**
-     * Subscription for route params, to delete it in ngOnDestroy.
-     */
-    private routeParamsSub: Subscription;
 
     /**
      * FormGroup for add member form
@@ -71,10 +67,12 @@ export class OverviewContainerComponent implements OnInit {
      * @param {HttpClient} httpClient
      * @param {ActivatedRoute} activatedRoute
      * @param {CheckAuthService} checkAuthService
+     * @param {ProjectManagerService} projectManagerService
      */
     public constructor(private httpClient: HttpClient,
                        private activatedRoute: ActivatedRoute,
-                       private checkAuthService: CheckAuthService) {
+                       private checkAuthService: CheckAuthService,
+                       private projectManagerService: ProjectManagerService) {
         this.overviewLoading = true;
         this.errorMessageAddMember = null;
         this.showAddMember = false;
@@ -100,39 +98,18 @@ export class OverviewContainerComponent implements OnInit {
             role: 0
         });
 
-        this.routeParamsSub = this.activatedRoute.parent.params.subscribe((params) => {
-            this.getProject (params['name']);
-        });
+        // Get the project
+        const currentParams = this.activatedRoute.snapshot.parent.params;
+        this.getProject(currentParams['name']);
     }
 
-    /**
-     * Call api GET /api/project/:name service for requested project.
-     * @param {string} projectName
-     */
-    private getProject (projectName: string) {
-        let httpParams = new HttpParams()
-            .set('token', localStorage.getItem(AppConstants.ACCESS_COOKIE_NAME));
-
-        projectName = encodeURIComponent(projectName);
-
-        this.httpClient.get(`/api/projects/${projectName}`,{
-            params: httpParams,
-            responseType: 'json'
-        }).subscribe((response: any) => {
+    private getProject (name: string) {
+        this.projectManagerService.get(name).subscribe ((project) => {
             this.overviewLoading = false;
-            this.currentProject = response[0];
-        }, (error) => {
+            this.currentProject = project;
+        }, () => {
             this.overviewLoading = false;
-            this.checkAuthService.check(error);
-        });
-    }
-
-    /**
-     * Unsuscribe for route params changing
-     */
-    public ngOnDestroy (): void {
-        this.routeParamsSub.unsubscribe();
-        this.routeParamsSub = null;
+        })
     }
 
     /**
@@ -166,6 +143,8 @@ export class OverviewContainerComponent implements OnInit {
                     responseType: 'json'
                 }
             ).subscribe((response: any) => {
+                this.addMemberForm.reset();
+
                 this.addMemberFormLoading = false;
                 this.getProject (this.currentProject.name);
                 this.errorMessageAddMember = null;

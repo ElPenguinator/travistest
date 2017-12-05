@@ -15,7 +15,8 @@ RUN npm install -save
 
 COPY web-app/. /home/node/app/web-app
 
-CMD ["npm", "run-script", "build"]
+# buidl:prod for production
+CMD ["npm", "run", "build:dev"]
 
 #Run Express
 

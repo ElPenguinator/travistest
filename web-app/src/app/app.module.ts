@@ -22,6 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {UnAuthGuard} from "./guards/un-auth/un-auth.guard";
 import {CheckAuthService} from "./services/check-auth.service";
 import {ApiCallingObserverService} from "./services/api-call-observer.service";
+import {ProjectManagerService} from "./services/project-manager.service";
+import {UserManagerService} from "./services/user-manager.service";
 
 @NgModule({
     declarations: [
@@ -50,7 +52,9 @@ import {ApiCallingObserverService} from "./services/api-call-observer.service";
         AuthGuard,
         UnAuthGuard,
         CheckAuthService,
-        ApiCallingObserverService
+        ApiCallingObserverService,
+        ProjectManagerService,
+        UserManagerService
     ],
     bootstrap: [AppComponent]
 })

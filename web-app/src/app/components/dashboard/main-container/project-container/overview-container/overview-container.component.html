@@ -1,10 +1,10 @@
-<div *ngIf="loading" class="page-loading text-center">
+<div *ngIf="overviewLoading" class="page-loading text-center">
     <i class="ld ld-spin ld-ring"></i>
 </div>
-<div *ngIf="!loading">
+<div *ngIf="!overviewLoading">
     <br>
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" *ngIf="currentProject">
             <h1 align="center">{{ currentProject.name }}</h1>
             <p align="center">{{ currentProject.description }}</p>
             <p align="center">Date de debut : xx/xx/xxxx</p>
@@ -22,11 +22,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of currentProject.users">
-                    <td><span class="email" [id]="user.login">{{ user.login }}</span>&nbsp;(<span class="username">{{ user.name }} {{ user.surname }}</span>)</td>
-                    <td>{{ user.role }}</td>
-                </tr>
-                <tr *ngIf="currentProject.users && currentProject.users.length === 0"
+                <ng-container *ngIf="currentProject">
+                    <tr *ngFor="let user of currentProject.users">
+                        <td><span class="email" [id]="user.login">{{ user.login }}</span>&nbsp;(<span class="username">{{ user.name }} {{ user.surname }}</span>)</td>
+                        <td>{{ user.role }}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="!currentProject || (currentProject.users && currentProject.users.length === 0)"
                     class="empty-list">
                     <td colspan="2" class="text-center">
                         Aucun utilisateur n'a été ajouté au projet.
@@ -107,10 +109,6 @@
                     <span > Ajouter</span>
                 </button>
             </div>
-
-
-
-
         </div>
 
     </div>

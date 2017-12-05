@@ -6,7 +6,8 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
-const userStories = require('./userStories');
+const projects = require('./projects');
+const router = express.Router();
 
 var app = express();
 
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Make our db accessible to our router
-app.use(function (req, res, next) {
+router.use(function (req, res, next) {
     req.db = db;
     next();
 });
@@ -57,7 +58,7 @@ function verifyAuth(req, res, next) {
 //Suppose :
 // POST : {"name":"foo", "description":"bar", "token":"token"}
 // POST : url?name=foo&description=bar&token=token
-app.post('/', function (req, res) {
+router.post('/', function (req, res) {
     var name = req.body.name;
     var description = req.body.description;
 
@@ -140,7 +141,7 @@ app.post('/', function (req, res) {
 
 //Get a Project Service
 //From the Project Name
-app.get('/:name', function (req, res) {
+router.get('/:name', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     var projectName = req.params.name;
     //Remplacer userTestJSON par une requête MangoDB qui sélectionne un projet selon son nom
@@ -182,7 +183,7 @@ app.get('/:name', function (req, res) {
 //Suppose :
 // POST : {"name":"foo", "login":"bar"}
 // POST : url?name=foo&login=bar
-app.put('/:name/users/:login', function (req, res) {
+router.put('/:name/users/:login', function (req, res) {
     var projectName = req.params.name;
     var userLogin = req.params.login;
 
@@ -262,3 +263,5 @@ app.put('/:name/users/:login', function (req, res) {
         });
     });
 });
+
+module.exports = router;
