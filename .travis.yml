@@ -1,10 +1,4 @@
 language: node_js
-addons:
-  apt:
-    sources:
-    - google-chrome
-    packages:
-    - google-chrome-stable
 sudo: required
 services:
 - docker
@@ -16,23 +10,17 @@ node_js:
 before_install:
 - cd api/
 - npm install -g node-gyp
-- npm install -g protractor
 before_script:
 - npm install -g standard
 - docker-compose build
 - docker-compose up -d
 - sleep 3
 - mongo "localhost:27017/nodetest1" --eval "db.dropDatabase();"
-- cd ..
-env:
-- TEST_DIR = api
-- TEST_DIR = web-app
 script:
-- cd $TEST_DIR && npm test
+- npm test
 after_success: 
 after_script:
 - docker-compose kill
-- webdriver-manager shutdown
 before_deploy:
 - cd ..
 - tar cvf release.tgz .
