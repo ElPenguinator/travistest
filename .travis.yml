@@ -3,7 +3,7 @@ sudo: required
 services:
 - docker
 cache:
-  directories:
+  directories: 
   - node_modules
 node_js:
 - 6
