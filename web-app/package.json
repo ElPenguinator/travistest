@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -H 0.0.0.0",
-    "build:dev": "ng build -dev --watch &",
+    "build:dev": "ng build --watch -dev",
     "build:prod": "ng build -prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -54,6 +54,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.3.3"
+    "typescript": "2.3.0",
+    "webpack": "^3.10.0"
   }
 }
