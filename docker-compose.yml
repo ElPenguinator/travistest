@@ -6,14 +6,8 @@ services:
     restart: always
     ports:
       - "27017:27017"
-  angular:
-    build: ./web-app
-    volumes:
-      - ./web-app:/home/node/app/web-app
-      - /home/node/app/api/node_modules
-      - /home/node/app/web-app/node_modules
   express:
-    build: ./api
+    build: .
     volumes:
       - ./api:/home/node/app/api
       - /home/node/app/api/node_modules
@@ -24,4 +18,3 @@ services:
       - "8080:8080"
     depends_on:
       - mongo
-      - angular

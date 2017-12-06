@@ -25,13 +25,7 @@ before_deploy:
 - cd ..
 - tar cvf release.tgz .
 deploy:
-  - provider: heroku
-    api_key:
-      secure: f8Rhp6PLl/iMAmQOOZo9QhYYpSO7Ur9QDIJajnjXbSq2hfuqHc0XMJ9YkyWtkeNzTDllXQyd588frt9wZhJLhZbK/jbxJzyjAsfo91cSp+9Oxjy7oVjla0TUSrfo5/K+UG9QhF5fE86DuOC4qmB+CztOB5Vwz4RFHyuSHwEAbHfHX1K3oNPgJ8BiXWLj2lDn3aZB1Wiq9eAtwWYMbaxH/Zace3YQjFCuBU0mNT/qFq1damNB3zXaB+iPW3T9aOg52lAcNzf40WkoyTQxEAZ715/RPLQleNY2WOc18n/8L3go/eEC/6quRfcXZELZCIQCUak9uPGlPayqhFH+QB9W8n8NPuyWapENCXQMrUYbtp3uLjitQ/s2uoAqIXew//lFBns4Zk+xBr89fJMFT/IVvaci8GaybKeAMB019n2VJiF9mzgnUpJn4djZDcJL0I7c8PZj7Pzqt/cbQ5csUtzjV4lRJRtUWr3SXidOvTwEgAQrCBbtT6mdKmp0NIsv/KSB4VLiPey/yLLd6QRAEIoRaSE/WxezkRK++ai4Da/SlUwEMyfXfEg4TXFnevasOwW9NAGXQGDpiANS0O26oHV23xGZx8O6vhJOgaMgyTtM/497kRbeqKAxXOsi2+L52DmsJX+gi3CJ/ISbuizUwejfzADBy5t2Tk3dDB2ERqRza9Y=
-    app: damp-thicket-46818
-    on:
-      repo: ElPenguinator/travistest
-  - provider: releases
+  provider: releases
     api_key:
       secure: HYpwfQQ0WTjA5LffVUJNYFT9j+zsFowepfNKfns3ysfpKQikQTlw6Mqg4yGQ4i8H76ArufbqXjGeiVWZnxfDOUK7JUuUc2keIcijZMocx4uUKJvJte/KqKZhT7WvLPabPjfAXP3KXGZaVO8EjrcwaAFU2v3dSLAufjBI19cMCHF9f1KeMiBnNx6iBvkxMFIYHHnEl5IesnN/V6ewEsCuTTGKJVsnhDpCG3jVXWg/LtII5ndcuPjlQU0Fv+PEJXdwn01bdO0vU7jlsCQ3u3I+jsbh6VHLHzgnUxkc2F2M42OQk4W/+4FG3c0cok2g668KdnQ6+e46SHWdcNFtYcAuvzOrhg/osfpC3ZqHD25zb87N9yhkB5cq/X/NhrF/W6DdxrN2LneA9UxvmyL2KcYpq739mxC0ngO4W8its0+j6lCWZcCAcWn5vvVNzOhc2lYtaKLLhVKRUxl25wFafAjrVcEBdWPcQJdmkRRKV9MdNW8sOn/wFfyvjvNAtWXMjOyvIHaodnoCu2sWo7WVWn7vTNljmG8tHgbkoej1ZlzeuUn2F4lK3+4NU0cElQVVAirehcZ3kzeDQdz5mRrjzXmjk2Q+R51OsbFzfMr7lHBqCFU5H4fBnW9LOsMySsmlHwumHkGWcRvicfgczLIa5ZinMKBk+SrTGe42GKKqwNyXl4M=
     file: "release.tgz"
