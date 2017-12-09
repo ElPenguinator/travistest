@@ -4,6 +4,7 @@
   "description": "",
   "main": "api.js",
   "scripts": {
+    "start": "node server.js",
     "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000",
     "docker-dev": "pm2-dev start api.js"
   },
