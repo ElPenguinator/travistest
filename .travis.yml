@@ -10,6 +10,8 @@ node_js:
 before_install:
 - cd api/
 - npm install -g node-gyp
+- cd ../web-app
+- npm install
 before_script:
 - npm install -g standard
 - docker-compose build
@@ -17,7 +19,10 @@ before_script:
 - sleep 3
 - mongo "localhost:27017/nodetest1" --eval "db.dropDatabase();"
 script:
+- cd ../api
 - npm test
+- cd ../web-app
+- npm run e2e
 after_success: 
 after_script:
 - docker-compose kill
