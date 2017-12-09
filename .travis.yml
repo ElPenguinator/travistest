@@ -2,8 +2,13 @@ language: node_js
 sudo: required
 services:
 - docker
+dist: trusty
 addons:
-  chrome: stable
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 cache:
   directories:
   - node_modules
