@@ -34,6 +34,7 @@ script:
 - npm install
 - npm run e2e
 after_success:
+- docker ps
 - docker login --username=_ --password=d9ebfbe9-36aa-45a2-94c8-a21e6c2e53fe registry.heroku.com
 - docker push registry.heroku.com/travistestbepp/web;
 after_script:
