@@ -34,7 +34,7 @@ script:
 - npm install
 - npm run e2e
 after_success:
-- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" registry.heroku.com
+- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
 - docker push registry.heroku.com/travistestbepp/web;
 after_script:
 - docker-compose kill
