@@ -81,7 +81,7 @@ app.get(['/', '/:requested'], function (req, res, next) {
 ///// else page introuvable
 app.use(function (req, res, next) {
     res.setHeader('Content-Type', 'text/plain');
-    res.status(404).send('Page introuvable !');
+    res.status(404).send('Page introuvable !, test : ' + process.env.MONGOLAB_URI);
 });
 
 // Get port from environment and store in Express.
