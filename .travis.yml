@@ -36,7 +36,7 @@ script:
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "Dev-Sprint3" ]; then
   docker tag travistest_express registry.heroku.com/travistestbepp/web;
-  docker login --username=_ --password=d9ebfbe9-36aa-45a2-94c8-a21e6c2e53fe registry.heroku.com;
+  docker login --username=_ --password=0bb9660b-60ca-4694-9c77-cb7ec07c1d55 registry.heroku.com;
   docker push registry.heroku.com/travistestbepp/web;
   fi
 after_script:
