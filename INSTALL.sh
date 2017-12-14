@@ -54,7 +54,7 @@ then
     cd api ; \
     rm -rf dataTest; \
     mkdir dataTest; \
-    mongod --dbpath dataTest/ & PID_MONGO=$! ; \
+    mongod --dbpath dataTest/ & PID_MONGO=$! ; \ 
     node api.js & PID_NODE=$! ;
     npm test;
 
