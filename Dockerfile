@@ -35,4 +35,4 @@ COPY api /home/node/app/api
 
 EXPOSE 8080
 
-CMD ["npm", "run", "docker-dev"]
+CMD ["npm", "run", "start:prod"]
